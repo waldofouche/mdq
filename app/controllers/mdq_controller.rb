@@ -1,23 +1,22 @@
-# app/controllers/mdq_controller.rb
+# frozen_string_literal: true
+
 
 class MdqController < ApplicationController
   def index
     entity_id = params[:entity_id]
-    metadata = $redis.get("metadata:#{entity_id}")
+    key = url_safe_encode(entity_id)
+    metadata = $redis.get("metadata:#{key}")
 
     if metadata
       render xml: metadata
     else
-      render plain: "Not Found", status: :not_found
+      render plain: 'Not Found', status: :not_found
     end
   end
 
-  def update_metadata
-    entity_id = params[:entity_id]
-    metadata = params[:metadata]
+  private
 
-    $redis.set("metadata:#{entity_id}", metadata)
-
-    render plain: "Metadata updated successfully"
+  def url_safe_encode(entity_id)
+    CGI.escape(entity_id)
   end
 end
