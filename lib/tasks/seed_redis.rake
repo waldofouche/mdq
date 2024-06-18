@@ -5,14 +5,23 @@ namespace :redis do
   task seed_entities: :environment do
     require 'faker' # If you want to generate fake data
 
-    50.times do |index|
-      entity_id = "entity_#{index + 1}"
+    # Service Providers
+    50.times do 
+      entity_id = "https://#{Faker::Internet.domain_name}/idp/shibboleth"
       metadata = generate_metadata(entity_id) # Implement your metadata generation logic
 
       $redis.set("metadata:#{entity_id}", metadata)
     end
 
-    puts "Successfully seeded Redis with 50 entities"
+    # Identity Providers
+    50.times do
+      entity_id = "https://app.#{Faker::Internet.domain_name}/shibboleth"
+      metadata = generate_metadata(entity_id) # Implement your metadata generation logic
+
+      $redis.set("metadata:#{entity_id}", metadata)
+    end
+
+    puts "Successfully seeded Redis with 50 Service Providers and 50 Identity Providers"
   end
 end
 
