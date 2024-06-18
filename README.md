@@ -1,24 +1,40 @@
-# README
+# SAML Metadata Query (MDQ) Service
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This Rails application serves as a SAML Metadata Query (MDQ) service, allowing retrieval of metadata for entities based on their entity ID.
 
-Things you may want to cover:
+## Usage
 
-* Ruby version
+### Prerequisites
 
-* System dependencies
+- Ruby (version 2.7+ recommended)
+- Rails (version 6.1+ recommended)
+- Bundler gem (`gem install bundler` if not installed)
 
-* Configuration
+### Installation
 
-* Database creation
+1. Clone the repository:
 
-* Database initialization
+   ```bash
+   git clone <repository-url>
+   cd mdq_service
 
-* How to run the test suite
+2. Install dependencies:
 
-* Services (job queues, cache servers, search engines, etc.)
+   ```bash
+   bundle install
+   ```
+   
+3. Start the server:
 
-* Deployment instructions
+   ```bash
+   rails server
+   ```
+   
+4. Access the MDQ service in your browser or via curl:
 
-* ...
+   ```bash
+   curl http://localhost:3000/entities/<entity-id>
+   ```
+   
+    Replace `<entity-id>` with the entity ID for which you want to retrieve metadata.
+   
