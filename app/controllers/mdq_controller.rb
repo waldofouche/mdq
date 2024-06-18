@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-
 class MdqController < ApplicationController
   def index
     entity_id = params[:entity_id]

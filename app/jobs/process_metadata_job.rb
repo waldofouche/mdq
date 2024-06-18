@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # app/jobs/process_metadata_job.rb
 
 require 'httparty'
