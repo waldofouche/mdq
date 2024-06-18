@@ -1,28 +1,23 @@
 # app/controllers/mdq_controller.rb
 
 class MdqController < ApplicationController
-  before_action :set_metadata_store
-
   def index
     entity_id = params[:entity_id]
-    metadata = @metadata_store[entity_id]
+    metadata = $redis.get("metadata:#{entity_id}")
 
     if metadata
       render xml: metadata
     else
-      render plain: "Metadata not found", status: :not_found
+      render plain: "Not Found", status: :not_found
     end
   end
 
-  private
+  def update_metadata
+    entity_id = params[:entity_id]
+    metadata = params[:metadata]
 
-  # TODO: Replace this with a real metadata store, redis?
-  
-  def set_metadata_store
-    @metadata_store = {
-      "entity_id_1" => "<EntityDescriptor>...</EntityDescriptor>",
-      "entity_id_2" => "<EntityDescriptor>...</EntityDescriptor>"
-      # Add more metadata here
-    }
+    $redis.set("metadata:#{entity_id}", metadata)
+
+    render plain: "Metadata updated successfully"
   end
 end
