@@ -16,6 +16,7 @@ gem "bootsnap", require: false
 gem 'ruby-saml'
 gem 'nokogiri'
 gem 'faker'
+gem 'httparty'
 
 
 group :development, :test do
